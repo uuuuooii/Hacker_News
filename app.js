@@ -18,7 +18,7 @@ function newsFeed() {
     const newsFeed = getData(NEWS_URL);
     const newsList = [];
     let template = `
-        <div>
+        <div class="container mx-auto p-4">
             <h1></h1>
             <ul>
                 {{__news_feed__}}
@@ -41,7 +41,11 @@ for(let i = (store.currentPage -1) * 10; i < store.currentPage *10; i++){
     `)
 }
 
-container.innerHTML = newsList.join('');
+template = template.replace('{{__news_feed__}}',newsList.join(''))
+template = template.replace('{{__prev_page__}}',store.currentPage > 1 ? store.currentPage -1 : 1);
+template = template.replace('{{__next_page__}}',store.currentPage > + 1);
+
+container.innerHTML = template;
 }
 
 function newsDetail() {
